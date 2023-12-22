@@ -7,8 +7,8 @@ END-INFO-DIR-ENTRY
 
 This file documents the use and the internals of Assuan.
 
-   This is Edition 2.5.5, last updated 7 December 2017, of 'The
-'Developing with Assuan' Manual', for Version 2.5.5.
+   This is Edition 2.5.6, last updated 16 June 2023, of 'The 'Developing
+with Assuan' Manual', for Version 2.5.6.
 
    Published by the Free Software Foundation
 51 Franklin Street, Fifth Floor
@@ -370,35 +370,35 @@ which the header file is located to the compilers include file search
 path (via the '-I' option).
 
    However, the path to the include file is determined at the time the
-source is configured.  To solve this problem, 'libassuan' ships with a
-small helper program 'libassuan-config' that knows the path to the
-include file and other configuration options.  The options that need to
-be added to the compiler invocation at compile time are output by the
-'--cflags' option to 'libassuan-config'.  The following example shows
-how it can be used at the command line:
+source is configured.  To solve this problem, 'libassuan' ships with
+'libassuan.pc' file, that knows the path to the include file and other
+configuration options.  The options that need to be added to the
+compiler invocation at compile time are output by the '--cflags' option
+to 'pkg-config libassuan'.  The following example shows how it can be
+used at the command line:
 
-     gcc -c foo.c $(libassuan-config --cflags)
+     gcc -c foo.c $(pkg-config --cflags libassuan)
 
-   Adding the output of 'libassuan-config --cflags' to the compiler's
-command line will ensure that the compiler can find the 'assuan.h'
-header file.
+   Adding the output of 'pkg-config --cflags libassuan' to the
+compiler's command line will ensure that the compiler can find the
+'assuan.h' header file.
 
    A similar problem occurs when linking the program with the library.
 Again, the compiler/linker has to find the library files.  For this to
 work, the path to the library files has to be added to the library
 search path (via the '-L' option).  For this, the option '--libs' to
-'libassuan-config' can be used.  For convenience, this option also
+'pkg-config libassuan' can be used.  For convenience, this option also
 outputs all other options that are required to link the program with the
 'libassuan' libraries (in particular, the '-lassuan' option).  The
 example shows how to link 'foo.o' with the 'libassuan' library to a
 program 'foo'.
 
-     gcc -o foo foo.o $(libassuan-config --libs)
+     gcc -o foo foo.o $(pkg-config --libs libassuan)
 
    You can also combine both examples to a single command by specifying
-both options to 'libassuan-config':
+both options to 'pkg-config libassuan':
 
-     gcc -o foo foo.c $(libassuan-config --cflags --libs)
+     gcc -o foo foo.c $(pkg-config --cflags --libs libassuan)
 
 
 File: assuan.info,  Node: Automake,  Next: Multi Threading,  Prev: Building sources,  Up: Preparation
@@ -408,8 +408,10 @@ File: assuan.info,  Node: Automake,  Next: Multi Threading,  Prev: Building sour
 
 It is much easier if you use GNU Automake instead of writing your own
 Makefiles.  If you do that you do not have to worry about finding and
-invoking the 'libassuan-config' script at all.  'libassuan' provides an
-Automake macro that does all the work for you.
+invoking the 'pkg-config' script at all.
+
+   You can use 'PKG_CHECK_MODULES' macro, or, 'libassuan' also provides
+an Automake macro that does all the work for you.
 
  -- Macro: AM_PATH_LIBASSUAN ([MINIMUM-VERSION], [ACTION-IF-FOUND],
           [ACTION-IF-NOT-FOUND])
@@ -3148,7 +3150,7 @@ Index
  [index ]
 * Menu:
 
-* AM_PATH_LIBASSUAN:                     Automake.            (line  11)
+* AM_PATH_LIBASSUAN:                     Automake.            (line  13)
 * assuan_accept:                         Server code.         (line 267)
 * assuan_begin_confidential:             Contexts.            (line 110)
 * assuan_close_input_fd:                 Utilities.           (line  93)
@@ -3256,38 +3258,38 @@ Index
 
 
 Tag Table:
-Node: Top907
-Node: Introduction1973
-Node: Assuan4228
-Node: Implementation5272
-Node: Server responses6451
-Node: Client requests8741
-Node: Error codes11779
-Node: Preparation12118
-Node: Header12693
-Node: Building sources13479
-Node: Automake15378
-Node: Multi Threading16526
-Node: Generalities17485
-Node: Data Types17889
-Node: Initializing the library18997
-Ref: function assuan_set_gpg_err_source21693
-Node: Default Log Handler24012
-Node: Contexts25778
-Ref: function assuan_new26358
-Node: Reading and Writing36930
-Node: Client code40405
-Ref: function assuan_sendfd45402
-Ref: function assuan_receivefd45993
-Node: Server code46368
-Node: External I/O Loop58493
-Node: External I/O Loop Client60318
-Node: External I/O Loop Server63403
-Node: Utilities67987
-Ref: Utilities-Footnote-176088
-Node: Socket wrappers76152
-Node: Library Copying83133
-Node: Copying111245
-Node: Index148759
+Node: Top904
+Node: Introduction1970
+Node: Assuan4225
+Node: Implementation5269
+Node: Server responses6448
+Node: Client requests8738
+Node: Error codes11776
+Node: Preparation12115
+Node: Header12690
+Node: Building sources13476
+Node: Automake15382
+Node: Multi Threading16575
+Node: Generalities17534
+Node: Data Types17938
+Node: Initializing the library19046
+Ref: function assuan_set_gpg_err_source21742
+Node: Default Log Handler24061
+Node: Contexts25827
+Ref: function assuan_new26407
+Node: Reading and Writing36979
+Node: Client code40454
+Ref: function assuan_sendfd45451
+Ref: function assuan_receivefd46042
+Node: Server code46417
+Node: External I/O Loop58542
+Node: External I/O Loop Client60367
+Node: External I/O Loop Server63452
+Node: Utilities68036
+Ref: Utilities-Footnote-176137
+Node: Socket wrappers76201
+Node: Library Copying83182
+Node: Copying111294
+Node: Index148808
 
 End Tag Table

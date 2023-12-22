@@ -1,3 +1,107 @@
+2023-06-19  Werner Koch  <wk@gnupg.org>
+
+	Release 2.5.6.
+	+ commit 6b50ee6bcdd6aa81bd7cc3fb2379864c3ed479b8
+
+
+2023-06-16  Werner Koch  <wk@gnupg.org>
+
+	Flush data before clearing the confidential flag.
+	+ commit 0fc31770fa6277c57940b774d4049d7a3ad148e8
+	* src/context.c (assuan_end_confidential): Flush data.
+
+2023-06-16  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Fix listing m4 files.
+	+ commit e686c85e207e52130388c68018ac2e75b7fb574a
+	* m4/Makefile.am (EXTRA_DIST): Add ax_cc_for_build.m4 and
+	gpg-error.m4.  Remove sys_socket_h.m4.
+
+	build: Better cross build support.
+	+ commit 1939b040ca2301270a7f5be4e3049c551bf73dab
+	* configure.ac: Use AX_CC_FOR_BUILD.
+	* src/Makefile.am: Use EXEEXT_FOR_BUILD.
+	* m4/ax_cc_for_build.m4: New from libgpg-error.
+
+	tests: Use -no-fast-install LDFLAGS for Windows.
+	+ commit 32d9abf299ec5b217c5751d8dcf8cbb5989bdd9c
+	* tests/Makefile.am [HAVE_W32_SYSTEM] (AM_LDFLAGS): Conditionalize.
+
+	build: Update gpg-error.m4.
+	+ commit dbd5c48a36e6b6a28d12119a43ff2a65208dc152
+	* m4/gpg-error.m4: Update from libgpg-error master.
+
+	build: Update gpg-error.m4.
+	+ commit d7533c4333bfa93537eaf639fd18a6b1377df11e
+	* m4/gpg-error.m4: Update from libgpg-error 1.46.
+
+	build: Update config.guess, config.sub, and config.rpath.
+	+ commit 84d5349d23031c13762a0d59c105a9dec8cc9e90
+	* build-aux/config.guess: Update from upstream.
+	* build-aux/config.sub: Ditto.
+	* build-aux/config.rpath: Update from gettext 0.21.
+
+	build: Update gpg-error.m4.
+	+ commit f16fcb14c3661ff94e06612f3a3e46a5e98a62a8
+	* m4/gpg-error.m4: Update from libgpg-error.
+
+	Don't access NULL by wipememory.
+	+ commit ff1f8ee7a8fb9729e08fb51419de9a8c93a4fdb6
+	* src/assuan-inquire.c (assuan_inquire): Check mb->buf.
+
+	client: Wipe the inbound buffer when CONFIDENTIAL.
+	+ commit aac300389210031588a1f4c6d7f1efb4b45c4c95
+	* src/client.c (assuan_transact): Wipe the buffer.
+
+	server,client: Wipe the outbound buffer when CONFIDENTIAL.
+	+ commit 5ac7e6ba19fa5ed472b50c1b12ba7cf94015c734
+	* src/assuan-buffer.c (assuan_send_data): Wipe the buffer.
+
+	server: Wipe out the memory used by assuan_inquire if CONFIDENTIAL.
+	+ commit 4bfcd8a0f6f314581b40bed0cffe5f91441f4dff
+	* src/assuan-inquire.c (assuan_inquire): Wipe the memory and
+	inbound buffer.
+
+2021-12-22  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Update for newer autoconf.
+	+ commit 66d5fe281c8dcbbbc13edc8630aaf631b6cb5e85
+	* configure.ac (AC_PREREQ): Require >= 2.69.
+	(AC_HEADER_STDC): Remove.
+	* m4/sys_socket_h.m4: Remove.
+
+2021-12-17  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build,w32: Update configure script.
+	+ commit 576fbb033805b077ffe2270cb8a17c3f2dc830ae
+	* configure.ac: Don't use gl_HEADER_SYS_SOCKET, but check winsock2.h.
+
+2021-11-10  NIIBE Yutaka  <gniibe@fsij.org>
+
+	libtool: Link without -flat_namespace for macOS.
+	+ commit e342b58b6230d22c1225ed680f05e9d134a8f657
+	* m4/libtool.m4: Not setting 10.0 to MACOSX_DEPLOYMENT_TARGET when not
+	defined.  Only specify -flat_namespace to linker for specific
+	(older) versions and hosts.
+
+2021-08-05  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Simplify configure.ac.
+	+ commit 669c76ee28c0b10c418bb47f95b1401631478c5a
+	* configure.ac (AC_CHECK_HEADERS): Remove string.h.
+
+2021-05-27  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: _DARWIN_C_SOURCE should be 1.
+	+ commit 335030e3d204afe33873df83c29302ff1caa0217
+	* configure.ac (*-apple-darwin*): Set _DARWIN_C_SOURCE 1.
+
+2021-04-21  NIIBE Yutaka  <gniibe@fsij.org>
+
+	build: Update gpg-error.m4.
+	+ commit 8ec3e9f1dd88e14f42f31e8692a8664bd894226b
+	* m4/gpg-error.m4: Update from libgpg-error.
+
 2021-03-22  Werner Koch  <wk@gnupg.org>
 
 	Release 2.5.5.

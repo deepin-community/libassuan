@@ -22,7 +22,7 @@
 # Process this file with autoconf to produce a configure script.
 
 
-AC_PREREQ([2.61])
+AC_PREREQ([2.69])
 min_automake_version="1.14"
 
 # To build a release you need to create a tag with the version number
@@ -33,7 +33,7 @@ min_automake_version="1.14"
 m4_define([mym4_package],[libassuan])
 m4_define([mym4_major], [2])
 m4_define([mym4_minor], [5])
-m4_define([mym4_micro], [5])
+m4_define([mym4_micro], [6])
 
 # To start a new development series, i.e a new major or minor number
 # you need to mark an arbitrary commit before the first beta release
@@ -63,7 +63,7 @@ AC_INIT([mym4_package],[mym4_version],[https://bugs.gnupg.org])
 #
 LIBASSUAN_LT_CURRENT=8
 LIBASSUAN_LT_AGE=8
-LIBASSUAN_LT_REVISION=5
+LIBASSUAN_LT_REVISION=6
 
 # If the API is changed in an incompatible way: increment the next counter.
 LIBASSUAN_CONFIG_API_VERSION=2
@@ -145,7 +145,7 @@ case "${host}" in
         ;;
     *-apple-darwin*)
         AC_DEFINE(_XOPEN_SOURCE, 500, Activate POSIX interface on MacOS X)
-        AC_DEFINE(_DARWIN_C_SOURCE, 900000L,
+        AC_DEFINE(_DARWIN_C_SOURCE, 1,
                   Expose all libc features (__DARWIN_C_FULL))
         ;;
 esac
@@ -189,21 +189,8 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 #AC_ARG_PROGRAM
 
-# We need to compile and run a program on the build machine.  A
-# comment in libgpg-error says that the AC_PROG_CC_FOR_BUILD macro in
-# the AC archive is broken for autoconf 2.57.  Given that there is no
-# newer version of that macro, we assume that it is also broken for
-# autoconf 2.61 and thus we use a simple but usually sufficient
-# approach.
-AC_MSG_CHECKING(for cc for build)
-if test "$cross_compiling" = "yes"; then
-  CC_FOR_BUILD="${CC_FOR_BUILD-cc}"
-else
-  CC_FOR_BUILD="${CC_FOR_BUILD-$CC}"
-fi
-AC_MSG_RESULT($CC_FOR_BUILD)
-AC_ARG_VAR(CC_FOR_BUILD,[build system C compiler])
-
+# We need to compile and run a program on the build machine.
+AX_CC_FOR_BUILD
 
 if test "$GCC" = yes; then
     CFLAGS="$CFLAGS -Wall -Wcast-align -Wshadow -Wstrict-prototypes"
@@ -270,6 +257,7 @@ if test "$have_w32_system" = yes; then
     if test "$have_w32ce_system" = yes; then
        AC_DEFINE(HAVE_W32CE_SYSTEM,1,[Defined if we run on WindowsCE])
     fi
+    AC_CHECK_HEADERS([winsock2.h])
 fi
 AM_CONDITIONAL(HAVE_W32_SYSTEM, test "$have_w32_system" = yes)
 AM_CONDITIONAL(HAVE_W32CE_SYSTEM, test "$have_w32ce_system" = yes)
@@ -336,8 +324,7 @@ AC_SUBST(LIBASSUAN_CONFIG_API_VERSION)
 #
 # Checks for header files.
 #
-AC_HEADER_STDC
-AC_CHECK_HEADERS([string.h locale.h sys/uio.h stdint.h inttypes.h \
+AC_CHECK_HEADERS([locale.h sys/uio.h stdint.h inttypes.h \
                   sys/types.h sys/stat.h unistd.h sys/time.h fcntl.h \
                   sys/select.h ucred.h sys/ucred.h])
 AC_TYPE_UINTPTR_T
@@ -350,7 +337,6 @@ AC_C_CONST
 AC_C_INLINE
 AC_TYPE_SIZE_T
 
-gl_HEADER_SYS_SOCKET
 gl_TYPE_SOCKLEN_T
 
 if test $check_descriptor_passing != yes; then
