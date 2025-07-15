@@ -10,7 +10,6 @@ Build-Depends:
  libgpg-error-dev (>= 1.33),
 Build-Depends-Indep:
  libgpg-error-mingw-w64-dev,
- mingw-w64,
 Standards-Version: 4.6.2
 Vcs-Git: https://salsa.debian.org/debian/libassuan.git
 Vcs-Browser: https://salsa.debian.org/debian/libassuan

@@ -1,3 +1,9 @@
+libassuan (2.5.6-1deepin1) unstable; urgency=medium
+
+  * feat: add sw64 support.
+
+ -- hudeng <hudeng@deepin.org>  Thu, 29 May 2025 17:33:32 +0800
+
 libassuan (2.5.6-1) unstable; urgency=medium
 
   * New upstream release
