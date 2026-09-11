@@ -1,3 +1,16 @@
+libassuan (2.5.6-1deepin2) unstable; urgency=medium
+
+  * Rebuild with LTO enabled (dpkg vendor feature optimize/lto).
+  * d/control: add mingw-w64 to Build-Depends-Indep (except on loong64
+    and sw64): the Win32 cross build needs i686/x86_64-w64-mingw32-gcc,
+    which the deepin import had dropped.
+  * d/rules: skip the Win32 cross build on loong64 like on sw64: with
+    the loong64 mingw toolchain the configure gpgrt-config libdir probe
+    does not find the cross gpg-error.pc and aborts with "libgpg-error
+    was not found".
+
+ -- tunaichao <tunaichao@uniontech.com>  Fri, 11 Sep 2026 15:38:05 +0800
+
 libassuan (2.5.6-1deepin1) unstable; urgency=medium
 
   * feat: add sw64 support.
